@@ -18,7 +18,7 @@ This is a pnpm workspace with three packages:
 | Package | Purpose |
 |---------|---------|
 | [`remotry-core`](packages/core/) | Pure deployment logic — no CLI or UI dependency, framework-agnostic |
-| [`remotry`](packages/cli/) | Commander-based CLI binary (`remotry`) |
+| [`remotry-cli`](packages/cli/) | Commander-based CLI — installs the `remotry` binary |
 | [`remotry-vscode`](packages/vscode/) | VSCode extension — sidebar tree, WebView register form, in-process deploy (no subprocess spawn) |
 
 ## Features
@@ -36,8 +36,8 @@ This is a pnpm workspace with three packages:
 ### CLI (from npm)
 
 ```bash
-npm install -g remotry
-# or: pnpm add -g remotry
+npm install -g remotry-cli
+# or: pnpm add -g remotry-cli
 
 remotry --version
 remotry init                     # interactive setup wizard
@@ -224,7 +224,7 @@ git clone https://github.com/coldevotion/remotry.git
 cd remotry
 pnpm install
 pnpm -r build                        # build all packages
-pnpm --filter remotry build     # build only the CLI
+pnpm --filter remotry-cli build     # build only the CLI
 pnpm --filter remotry-vscode compile # build the VSCode extension (esbuild bundle)
 ```
 

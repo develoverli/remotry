@@ -37,7 +37,7 @@ jobs:
         run: pnpm --filter remotry-core build
 
       - name: Build CLI
-        run: pnpm --filter remotry build
+        run: pnpm --filter remotry-cli build
 
       - name: Build VSCode extension
         run: pnpm --filter remotry-vscode compile
