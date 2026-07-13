@@ -1,5 +1,5 @@
 {
-  "name": "remotry",
+  "name": "remotry-cli",
   "version": "1.0.0",
   "description": "Remotry CLI — deploy any project to a remote server over SSH/SFTP",
   "keywords": [
