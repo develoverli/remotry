@@ -13,8 +13,8 @@ process spawning of its own — just typed functions and async generators you ca
 drive from a CLI, an editor extension, or a CI script.
 
 Used by [`remotry-cli`](https://www.npmjs.com/package/remotry-cli) and the
-Remotry VSCode extension. Install it directly when you want to embed deploys in
-your own tooling.
+[Remotry VSCode extension](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry).
+Install it directly when you want to embed deploys in your own tooling.
 
 ## Install
 
@@ -91,6 +91,13 @@ Rollback is an atomic symlink swap — no re-upload, no downtime.
 
 See the [full documentation](https://github.com/coldevotion/remotry#readme) for
 the deploy flow, auto-detection rules, and configuration.
+
+## Contributing
+
+Contributions welcome — issues, feature requests, and PRs. See
+[CONTRIBUTING.md](https://github.com/coldevotion/remotry/blob/main/CONTRIBUTING.md)
+and open an issue at
+[github.com/coldevotion/remotry/issues](https://github.com/coldevotion/remotry/issues).
 
 ## License
 

@@ -13,7 +13,9 @@ rollbacks.
 
 Part of the [Remotry](https://github.com/coldevotion/remotry) workspace. For the
 programmatic API see [`remotry-core`](https://www.npmjs.com/package/remotry-core);
-for the editor integration, install the **Remotry** VSCode extension.
+for an in-editor experience, install the
+[**Remotry** VSCode extension](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry)
+— it shares the same project registry as this CLI.
 
 ## Install
 
@@ -94,6 +96,13 @@ both the CLI and the VSCode extension). You can also commit a per-workspace
 
 See the [full documentation](https://github.com/coldevotion/remotry#readme) for
 auto-detection rules, `.deployrc` format, and the remote layout.
+
+## Contributing
+
+Contributions welcome — issues, feature requests, and PRs. See
+[CONTRIBUTING.md](https://github.com/coldevotion/remotry/blob/main/CONTRIBUTING.md)
+and open an issue at
+[github.com/coldevotion/remotry/issues](https://github.com/coldevotion/remotry/issues).
 
 ## License
 

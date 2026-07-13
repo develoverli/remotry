@@ -1,10 +1,36 @@
 # Remotry for VSCode
 
+> **Build your project and ship it to a remote server over SSH/SFTP — without leaving the editor.**
+
+[![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/coldevotion.remotry?label=VS%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Deploy projects to remote servers over SSH/SFTP, directly from VSCode. Part of
 the [Remotry](https://github.com/coldevotion/remotry) toolkit.
 
-The extension imports [`remotry-core`](https://github.com/coldevotion/remotry/tree/main/packages/core)
-and deploys in-process — it does **not** shell out to the CLI.
+## What it does
+
+Remotry turns "build locally, then copy the output to a server" into a one-click
+action. It auto-detects your stack and package manager, builds the project,
+SFTP-uploads the output into a timestamped release, and atomically flips a
+`current` symlink — so rollbacks are instant and deploys have no downtime. No
+`rsync`, no `scp`, no terminal juggling.
+
+The extension imports [`remotry-core`](https://www.npmjs.com/package/remotry-core)
+and deploys **in-process** — it does **not** shell out to the CLI, and needs no
+separate `remotry-cli` install. It shares the same `~/.remotry/projects.json`
+registry as the CLI, so a project registered in either shows up in both.
+
+## Install
+
+From the editor: `Ctrl+P` → paste and run
+
+```
+ext install coldevotion.remotry
+```
+
+Or install from the
+[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry).
 
 ## Features
 
@@ -62,6 +88,13 @@ pnpm package         # build the .vsix
 code --install-extension remotry-vscode-*.vsix
 ```
 
+## Contributing
+
+Contributions welcome — issues, feature requests, and PRs. See
+[CONTRIBUTING.md](https://github.com/coldevotion/remotry/blob/main/CONTRIBUTING.md)
+and open an issue at
+[github.com/coldevotion/remotry/issues](https://github.com/coldevotion/remotry/issues).
+
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).

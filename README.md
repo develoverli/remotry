@@ -19,7 +19,7 @@ This is a pnpm workspace with three packages:
 |---------|---------|
 | [`remotry-core`](packages/core/) | Pure deployment logic — no CLI or UI dependency, framework-agnostic |
 | [`remotry-cli`](packages/cli/) | Commander-based CLI — installs the `remotry` binary |
-| [`remotry-vscode`](packages/vscode/) | VSCode extension — sidebar tree, WebView register form, in-process deploy (no subprocess spawn) |
+| [`remotry-vscode`](packages/vscode/) | [VSCode extension](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry) — sidebar tree, WebView register form, in-process deploy (no subprocess spawn) |
 
 ## Features
 
@@ -46,10 +46,21 @@ remotry deploy <name>            # build + ship
 
 ### VSCode extension
 
-Install **Remotry** from the VSCode Marketplace, or build the `.vsix` from
-source (see [Development](#development)). After installing, reload VSCode and
-click the **rocket icon** in the activity bar to open the **Deploy Projects**
-panel.
+Install **Remotry** from the
+[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry),
+or from the editor:
+
+```
+ext install coldevotion.remotry
+```
+
+The extension imports `remotry-core` and deploys **in-process** — no CLI install
+and no subprocess spawn. After installing, reload VSCode and click the **rocket
+icon** in the activity bar to open the **Deploy Projects** panel: register a
+project in a form, then deploy it with one click. It shares the same
+`~/.remotry/projects.json` registry as the CLI, so projects show up in both.
+
+You can also build the `.vsix` from source (see [Development](#development)).
 
 ## CLI commands
 
@@ -245,7 +256,11 @@ pnpm watch                       # esbuild --watch
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+Contributions are welcome — bug reports, feature requests, docs, and pull
+requests all help. Open an issue at
+[github.com/coldevotion/remotry/issues](https://github.com/coldevotion/remotry/issues)
+to discuss a change first, then see [CONTRIBUTING.md](CONTRIBUTING.md) for the
+dev setup and workflow.
 
 ## License
 
