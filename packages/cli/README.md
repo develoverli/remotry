@@ -14,7 +14,7 @@ rollbacks.
 Part of the [Remotry](https://github.com/coldevotion/remotry) workspace. For the
 programmatic API see [`remotry-core`](https://www.npmjs.com/package/remotry-core);
 for an in-editor experience, install the
-[**Remotry** VSCode extension](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry)
+[**Remotry** VSCode extension](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry-vscode)
 — it shares the same project registry as this CLI.
 
 ## Install

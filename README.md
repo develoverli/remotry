@@ -19,7 +19,7 @@ This is a pnpm workspace with three packages:
 |---------|---------|
 | [`remotry-core`](packages/core/) | Pure deployment logic — no CLI or UI dependency, framework-agnostic |
 | [`remotry-cli`](packages/cli/) | Commander-based CLI — installs the `remotry` binary |
-| [`remotry-vscode`](packages/vscode/) | [VSCode extension](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry) — sidebar tree, WebView register form, in-process deploy (no subprocess spawn) |
+| [`remotry-vscode`](packages/vscode/) | [VSCode extension](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry-vscode) — sidebar tree, WebView register form, in-process deploy (no subprocess spawn) |
 
 ## Features
 
@@ -47,11 +47,11 @@ remotry deploy <name>            # build + ship
 ### VSCode extension
 
 Install **Remotry** from the
-[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry),
+[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry-vscode),
 or from the editor:
 
 ```
-ext install coldevotion.remotry
+ext install coldevotion.remotry-vscode
 ```
 
 The extension imports `remotry-core` and deploys **in-process** — no CLI install

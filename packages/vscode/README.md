@@ -2,7 +2,7 @@
 
 > **Build your project and ship it to a remote server over SSH/SFTP — without leaving the editor.**
 
-[![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/coldevotion.remotry?label=VS%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry)
+[![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/coldevotion.remotry-vscode?label=VS%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry-vscode)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Deploy projects to remote servers over SSH/SFTP, directly from VSCode. Part of
@@ -26,11 +26,11 @@ registry as the CLI, so a project registered in either shows up in both.
 From the editor: `Ctrl+P` → paste and run
 
 ```
-ext install coldevotion.remotry
+ext install coldevotion.remotry-vscode
 ```
 
 Or install from the
-[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry).
+[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry-vscode).
 
 ## Features
 
