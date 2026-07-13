@@ -18,11 +18,11 @@
   },
   "scripts": {
     "build": "pnpm -r build",
-    "build:core": "pnpm --filter @remotry/core build",
-    "build:cli": "pnpm --filter @remotry/cli build",
+    "build:core": "pnpm --filter remotry-core build",
+    "build:cli": "pnpm --filter remotry build",
     "build:vscode": "pnpm --filter remotry-vscode compile",
     "package:vscode": "pnpm --filter remotry-vscode package",
-    "cli": "pnpm --filter @remotry/cli start",
+    "cli": "pnpm --filter remotry start",
     "clean": "pnpm -r exec rm -rf dist out"
   },
   "devDependencies": {

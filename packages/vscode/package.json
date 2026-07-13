@@ -168,7 +168,7 @@
     "publish": "vsce publish --no-dependencies"
   },
   "dependencies": {
-    "@remotry/core": "workspace:*"
+    "remotry-core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.19.41",

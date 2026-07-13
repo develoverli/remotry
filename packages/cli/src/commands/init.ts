@@ -8,7 +8,7 @@ import {
   detectProjectType,
   getProjectDisplayName,
   loadProjectDeployrc,
-} from "@remotry/core";
+} from "remotry-core";
 import { logger } from "../utils/logger";
 
 export const initCommand = new Command("init")

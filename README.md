@@ -17,8 +17,8 @@ This is a pnpm workspace with three packages:
 
 | Package | Purpose |
 |---------|---------|
-| [`@remotry/core`](packages/core/) | Pure deployment logic — no CLI or UI dependency, framework-agnostic |
-| [`@remotry/cli`](packages/cli/) | Commander-based CLI binary (`remotry`) |
+| [`remotry-core`](packages/core/) | Pure deployment logic — no CLI or UI dependency, framework-agnostic |
+| [`remotry`](packages/cli/) | Commander-based CLI binary (`remotry`) |
 | [`remotry-vscode`](packages/vscode/) | VSCode extension — sidebar tree, WebView register form, in-process deploy (no subprocess spawn) |
 
 ## Features
@@ -26,7 +26,7 @@ This is a pnpm workspace with three packages:
 - **Auto-detect** project type and package manager (`pnpm` / `npm` / `yarn` / `bun`) from your lockfile
 - **SSH/SFTP upload** via `ssh2` — pure JavaScript, no external binary
 - **Interactive wizard** (`remotry init`) for first-time setup
-- **In-process deploy from VSCode** — the extension imports `@remotry/core` directly, no shelling out
+- **In-process deploy from VSCode** — the extension imports `remotry-core` directly, no shelling out
 - **Per-workspace `.deployrc`** (commit-friendly) or a global registry at `~/.remotry/projects.json`
 - **Dry-run** to preview a deploy without uploading
 - **Multi-project deploy** — deploy everything at once, in parallel or sequentially
@@ -36,8 +36,8 @@ This is a pnpm workspace with three packages:
 ### CLI (from npm)
 
 ```bash
-npm install -g @remotry/cli
-# or: pnpm add -g @remotry/cli
+npm install -g remotry
+# or: pnpm add -g remotry
 
 remotry --version
 remotry init                     # interactive setup wizard
@@ -186,11 +186,11 @@ remotePath/
 
 ## Programmatic use
 
-`@remotry/core` exposes the deployment logic as pure functions and async
+`remotry-core` exposes the deployment logic as pure functions and async
 generators, with no CLI or console dependency:
 
 ```ts
-import { deployProject } from "@remotry/core";
+import { deployProject } from "remotry-core";
 
 for await (const event of deployProject("my-app")) {
   if (event.type === "progress") {
@@ -224,7 +224,7 @@ git clone https://github.com/coldevotion/remotry.git
 cd remotry
 pnpm install
 pnpm -r build                        # build all packages
-pnpm --filter @remotry/cli build     # build only the CLI
+pnpm --filter remotry build     # build only the CLI
 pnpm --filter remotry-vscode compile # build the VSCode extension (esbuild bundle)
 ```
 

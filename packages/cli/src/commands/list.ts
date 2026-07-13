@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { listProjects, relativeTime, ProjectConfig } from "@remotry/core";
+import { listProjects, relativeTime, ProjectConfig } from "remotry-core";
 import { logger } from "../utils/logger";
 import chalk from "chalk";
 

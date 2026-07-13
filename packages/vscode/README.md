@@ -3,7 +3,7 @@
 Deploy projects to remote servers over SSH/SFTP, directly from VSCode. Part of
 the [Remotry](https://github.com/coldevotion/remotry) toolkit.
 
-The extension imports [`@remotry/core`](https://github.com/coldevotion/remotry/tree/main/packages/core)
+The extension imports [`remotry-core`](https://github.com/coldevotion/remotry/tree/main/packages/core)
 and deploys in-process — it does **not** shell out to the CLI.
 
 ## Features

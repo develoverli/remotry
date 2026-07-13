@@ -5,7 +5,7 @@ import {
   getProjectStatus,
   deployProject,
   store,
-} from "@remotry/core";
+} from "remotry-core";
 import { ProjectsTreeDataProvider, ProjectItem } from "../tree/treeDataProvider";
 import { openRegisterForm } from "../webview/registerForm";
 

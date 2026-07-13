@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { deployProject } from "@remotry/core";
+import { deployProject } from "remotry-core";
 import { logger } from "../utils/logger";
 
 export const deployCommand = new Command("deploy")

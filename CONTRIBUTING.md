@@ -42,7 +42,7 @@ Example: add a `prune` action that removes old `.deploy-history/` entries on the
 
 ```bash
 pnpm -r build                                  # all packages
-pnpm --filter @remotry/cli build               # CLI only
+pnpm --filter remotry build               # CLI only
 pnpm --filter remotry-vscode compile           # VSCode (typecheck + esbuild)
 pnpm --filter remotry-vscode bundle:prod       # production bundle
 
@@ -81,7 +81,7 @@ docs(readme): clarify pnpm setup step
 1. Bump versions in `packages/{core,cli,vscode}/package.json` (keep CLI + core in sync; the extension versions independently).
 2. Update `CHANGELOG.md` (if present).
 3. `pnpm -r build && pnpm --filter remotry-vscode bundle:prod && pnpm --filter remotry-vscode package`.
-4. Publish the npm packages: `pnpm --filter @remotry/core publish && pnpm --filter @remotry/cli publish`.
+4. Publish the npm packages: `pnpm --filter remotry-core publish && pnpm --filter remotry publish`.
 5. (VSCode Marketplace) `cd packages/vscode && pnpm publish` — requires a `vsce` PAT.
 
 ## Issues + PRs

@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { rollbackProject } from "@remotry/core";
+import { rollbackProject } from "remotry-core";
 import { logger } from "../utils/logger";
 
 export const rollbackCommand = new Command("rollback")

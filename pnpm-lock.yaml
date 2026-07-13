@@ -14,9 +14,6 @@ importers:
 
   packages/cli:
     dependencies:
-      '@remotry/core':
-        specifier: workspace:*
-        version: link:../core
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
@@ -35,6 +32,9 @@ importers:
       ora:
         specifier: ^9.4.0
         version: 9.4.1
+      remotry-core:
+        specifier: workspace:*
+        version: link:../core
     devDependencies:
       '@types/fs-extra':
         specifier: ^11.0.4
@@ -73,7 +73,7 @@ importers:
 
   packages/vscode:
     dependencies:
-      '@remotry/core':
+      remotry-core:
         specifier: workspace:*
         version: link:../core
     devDependencies:
