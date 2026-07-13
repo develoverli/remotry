@@ -2,7 +2,7 @@
   "name": "remotry-vscode",
   "displayName": "Remotry",
   "description": "Deploy projects to remote servers over SSH/SFTP — register, build, and ship from VSCode",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "coldevotion",
   "license": "MIT",
   "icon": "media/icon.png",
