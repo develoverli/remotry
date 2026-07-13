@@ -1,0 +1,180 @@
+{
+  "name": "remotry-vscode",
+  "displayName": "Remotry",
+  "description": "Deploy projects to remote servers over SSH/SFTP — register, build, and ship from VSCode",
+  "version": "1.0.0",
+  "publisher": "coldevotion",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "homepage": "https://github.com/coldevotion/remotry#readme",
+  "bugs": {
+    "url": "https://github.com/coldevotion/remotry/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coldevotion/remotry.git",
+    "directory": "packages/vscode"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "workspaceContains:**/.deployrc",
+    "onView:deployProjects"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "deploy.list",
+        "title": "Deploy: List Projects",
+        "category": "Deploy"
+      },
+      {
+        "command": "deploy.register",
+        "title": "Deploy: Register / Edit Project",
+        "category": "Deploy"
+      },
+      {
+        "command": "deploy.deploy",
+        "title": "Deploy: Deploy",
+        "category": "Deploy"
+      },
+      {
+        "command": "deploy.remove",
+        "title": "Deploy: Remove Project",
+        "category": "Deploy"
+      },
+      {
+        "command": "deploy.status",
+        "title": "Deploy: Status",
+        "category": "Deploy"
+      },
+      {
+        "command": "deploy.refresh",
+        "title": "Deploy: Refresh",
+        "category": "Deploy",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "deploy.openConfig",
+        "title": "Deploy: Open Config File",
+        "category": "Deploy"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "deploy.list"
+        },
+        {
+          "command": "deploy.register"
+        },
+        {
+          "command": "deploy.deploy",
+          "when": "workspaceFolderCount > 0"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "deploy.register",
+          "when": "view == deployProjects",
+          "group": "navigation@1"
+        },
+        {
+          "command": "deploy.refresh",
+          "when": "view == deployProjects",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "deploy.deploy",
+          "when": "view == deployProjects && viewItem == project",
+          "group": "inline@1"
+        },
+        {
+          "command": "deploy.register",
+          "when": "view == deployProjects && viewItem == project",
+          "group": "1_modify@1"
+        },
+        {
+          "command": "deploy.status",
+          "when": "view == deployProjects && viewItem == project",
+          "group": "1_modify@2"
+        },
+        {
+          "command": "deploy.remove",
+          "when": "view == deployProjects && viewItem == project",
+          "group": "2_danger@1"
+        }
+      ]
+    },
+    "views": {
+      "deploy-activitybar": [
+        {
+          "id": "deployProjects",
+          "name": "Deploy Projects",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Remotry",
+      "properties": {
+        "deploy.sshKey": {
+          "type": "string",
+          "default": "~/.ssh/id_rsa",
+          "description": "Default SSH private key"
+        },
+        "deploy.defaultRemoteUser": {
+          "type": "string",
+          "default": "root",
+          "description": "Default SSH username"
+        },
+        "deploy.defaultRemoteBase": {
+          "type": "string",
+          "default": "/var/www",
+          "description": "Default remote base path"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "deploy-activitybar",
+          "title": "Deploy",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "deployProjects",
+        "contents": "No projects registered.\n\n[Register a Project](command:deploy.register)\n\nOr create a `.deployrc` in workspace root."
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm bundle:prod",
+    "compile": "tsc -p ./ --noEmit && node build.mjs",
+    "bundle": "node build.mjs",
+    "bundle:prod": "node build.mjs --production",
+    "watch": "node build.mjs --watch",
+    "package": "vsce package --no-dependencies",
+    "publish": "vsce publish --no-dependencies"
+  },
+  "dependencies": {
+    "@remotry/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.41",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^3.9.1",
+    "esbuild": "^0.28.0",
+    "typescript": "^5.9.3"
+  }
+}

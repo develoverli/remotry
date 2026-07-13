@@ -1,0 +1,60 @@
+{
+  "name": "@remotry/cli",
+  "version": "1.0.0",
+  "description": "Remotry CLI — deploy any project to a remote server over SSH/SFTP",
+  "keywords": [
+    "deploy",
+    "deployment",
+    "cli",
+    "ssh",
+    "sftp",
+    "remote",
+    "ci"
+  ],
+  "homepage": "https://github.com/coldevotion/remotry#readme",
+  "bugs": {
+    "url": "https://github.com/coldevotion/remotry/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coldevotion/remotry.git",
+    "directory": "packages/cli"
+  },
+  "license": "MIT",
+  "author": "coldevotion",
+  "main": "dist/cli.js",
+  "bin": {
+    "remotry": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cli.js",
+    "dev": "tsc && node dist/cli.js"
+  },
+  "dependencies": {
+    "@remotry/core": "workspace:*",
+    "chalk": "^5.6.2",
+    "cli-table3": "^0.6.5",
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^13.4.3",
+    "ora": "^9.4.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.9",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.9.3"
+  }
+}

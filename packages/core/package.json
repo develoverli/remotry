@@ -1,0 +1,52 @@
+{
+  "name": "@remotry/core",
+  "version": "1.0.0",
+  "description": "Pure deployment logic for Remotry — SSH/SFTP project deploys with no CLI or UI dependency",
+  "keywords": [
+    "deploy",
+    "deployment",
+    "ssh",
+    "sftp",
+    "ssh2",
+    "remote",
+    "ci"
+  ],
+  "homepage": "https://github.com/coldevotion/remotry#readme",
+  "bugs": {
+    "url": "https://github.com/coldevotion/remotry/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coldevotion/remotry.git",
+    "directory": "packages/core"
+  },
+  "license": "MIT",
+  "author": "coldevotion",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "ssh2": "^1.17.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.0",
+    "@types/ssh2": "^1.15.5",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,9 @@
+packages:
+  - "packages/*"
+
+allowBuilds:
+  "@vscode/vsce-sign": false
+  cpu-features: false
+  esbuild: true
+  keytar: false
+  ssh2: false
