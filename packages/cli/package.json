@@ -1,6 +1,6 @@
 {
   "name": "@develoverli/remotry-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Remotry CLI — deploy any project to a remote server over SSH/SFTP",
   "keywords": [
     "deploy",

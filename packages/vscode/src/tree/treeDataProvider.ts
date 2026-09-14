@@ -5,6 +5,8 @@ export class ProjectsTreeDataProvider implements vscode.TreeDataProvider<Project
   private _onDidChangeTreeData = new vscode.EventEmitter<ProjectItem | undefined | void>();
   readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
 
+  constructor(private readonly extensionUri: vscode.Uri) {}
+
   refresh(): void {
     this._onDidChangeTreeData.fire();
   }
@@ -17,19 +19,22 @@ export class ProjectsTreeDataProvider implements vscode.TreeDataProvider<Project
     if (element) return [];
     const projects = listProjects();
     const names = Object.keys(projects).sort();
-    return names.map((name) => new ProjectItem(projects[name]));
+    return names.map((name) => new ProjectItem(projects[name], this.extensionUri));
   }
 }
 
 export class ProjectItem extends vscode.TreeItem {
   contextValue = "project";
 
-  constructor(public readonly project: ProjectConfig) {
+  constructor(public readonly project: ProjectConfig, extensionUri: vscode.Uri) {
     super(project.name, vscode.TreeItemCollapsibleState.None);
     const last = project.lastDeploy ? relativeTime(project.lastDeploy) : "never";
     this.description = `${project.framework ?? project.projectType} · ${last}`;
     this.tooltip = `${project.remoteUser}@${project.remoteHost}:${project.remotePath}\n${project.localPath}`;
-    this.iconPath = new vscode.ThemeIcon("rocket");
+    this.iconPath = {
+      light: vscode.Uri.joinPath(extensionUri, "media", "tree-light.svg"),
+      dark: vscode.Uri.joinPath(extensionUri, "media", "tree-dark.svg"),
+    };
     this.command = {
       command: "deploy.status",
       title: "Status",
