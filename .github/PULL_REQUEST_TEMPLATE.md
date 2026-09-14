@@ -15,12 +15,12 @@ Closes #
 
 - [ ] `@develoverli/remotry-core`
 - [ ] `@develoverli/remotry-cli`
-- [ ] `remotry-vscode`
+- [ ] `remotry` (VSCode extension)
 
 ## Checklist
 
 - [ ] `pnpm -r build` passes
-- [ ] `pnpm --filter remotry-vscode compile` passes (if the extension is affected)
+- [ ] `pnpm --filter remotry compile` passes (if the extension is affected)
 - [ ] `core` stays pure — no `process.exit`, no `console.log`, no UI dependencies
 - [ ] No `any`, no new dependencies without prior discussion
 - [ ] Docs updated (`README.md` / package READMEs) if behavior or flags changed

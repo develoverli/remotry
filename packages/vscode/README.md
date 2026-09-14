@@ -2,7 +2,7 @@
 
 > **Build your project and ship it to a remote server over SSH/SFTP — without leaving the editor.**
 
-[![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/develoverli.remotry-vscode?label=VS%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode)
+[![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/develoverli.remotry?label=VS%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Deploy projects to remote servers over SSH/SFTP, directly from VSCode. Part of
@@ -26,11 +26,11 @@ registry as the CLI, so a project registered in either shows up in both.
 From the editor: `Ctrl+P` → paste and run
 
 ```
-ext install develoverli.remotry-vscode
+ext install develoverli.remotry
 ```
 
 Or install from the
-[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode).
+[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry).
 
 ## Features
 
@@ -85,7 +85,7 @@ pnpm install
 pnpm compile         # typecheck + esbuild bundle
 pnpm watch           # esbuild --watch
 pnpm package         # build the .vsix
-code --install-extension remotry-vscode-*.vsix
+code --install-extension remotry-*.vsix
 ```
 
 ## Contributing

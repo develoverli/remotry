@@ -16,7 +16,7 @@ body:
       multiple: true
       options:
         - "@develoverli/remotry-cli"
-        - remotry-vscode
+        - "remotry (VSCode extension)"
         - "@develoverli/remotry-core"
     validations:
       required: true

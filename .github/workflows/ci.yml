@@ -40,7 +40,7 @@ jobs:
         run: pnpm --filter @develoverli/remotry-cli build
 
       - name: Build VSCode extension
-        run: pnpm --filter remotry-vscode compile
+        run: pnpm --filter remotry compile
 
       - name: Smoke test CLI
         run: |
@@ -67,12 +67,12 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @develoverli/remotry-core build
-      - run: pnpm --filter remotry-vscode bundle:prod
-      - run: pnpm --filter remotry-vscode package
+      - run: pnpm --filter remotry bundle:prod
+      - run: pnpm --filter remotry package
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
         with:
-          name: remotry-vscode-vsix
+          name: remotry-vsix
           path: packages/vscode/*.vsix
           retention-days: 30

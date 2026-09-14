@@ -13,7 +13,7 @@ process spawning of its own — just typed functions and async generators you ca
 drive from a CLI, an editor extension, or a CI script.
 
 Used by [`@develoverli/remotry-cli`](https://www.npmjs.com/package/@develoverli/remotry-cli) and the
-[Remotry VSCode extension](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode).
+[Remotry VSCode extension](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry).
 Install it directly when you want to embed deploys in your own tooling.
 
 ## Install

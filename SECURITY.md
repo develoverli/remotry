@@ -11,7 +11,7 @@ Only the latest release line receives security fixes.
 |---------|-----------|
 | `@develoverli/remotry-core` latest `1.x` | ✅ |
 | `@develoverli/remotry-cli` latest `1.x` | ✅ |
-| `remotry-vscode` latest `1.x` | ✅ |
+| `remotry` (VSCode extension) latest `1.x` | ✅ |
 | Older versions | ❌ |
 
 ## Reporting a vulnerability

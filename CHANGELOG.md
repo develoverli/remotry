@@ -4,7 +4,8 @@ All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-Versions apply to `remotry-core`, `remotry-cli`, and `remotry-vscode` unless noted.
+Versions apply to `@develoverli/remotry-core`, `@develoverli/remotry-cli`, and the
+`remotry` VSCode extension unless noted.
 
 ## [Unreleased]
 
@@ -21,8 +22,10 @@ Versions apply to `remotry-core`, `remotry-cli`, and `remotry-vscode` unless not
   is still `remotry`.
 - **VSCode extension:** new Marketplace icon and activity bar icon.
 - **VSCode extension:** Marketplace publisher changed from `coldevotion` to
-  `develoverli`. The extension ID is now `develoverli.remotry-vscode`; users of
-  `coldevotion.remotry-vscode` must install the new extension to keep receiving updates.
+  `develoverli`, the extension `name` from `remotry-vscode` to `remotry`, and its
+  display name from "Remotry" to "Remotry Deploy". The
+  extension ID is now `develoverli.remotry`; users of `coldevotion.remotry-vscode`
+  must install the new extension to keep receiving updates.
 
 ### Fixed
 

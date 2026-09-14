@@ -1,6 +1,6 @@
 {
-  "name": "remotry-vscode",
-  "displayName": "Remotry",
+  "name": "remotry",
+  "displayName": "Remotry Deploy",
   "description": "Deploy projects to remote servers over SSH/SFTP — register, build, and ship from VSCode",
   "version": "1.0.3",
   "publisher": "develoverli",

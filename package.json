@@ -1,5 +1,5 @@
 {
-  "name": "remotry",
+  "name": "remotry-monorepo",
   "version": "1.0.3",
   "private": true,
   "description": "Remotry monorepo — core deploy engine, CLI, and VSCode extension",
@@ -20,8 +20,8 @@
     "build": "pnpm -r build",
     "build:core": "pnpm --filter @develoverli/remotry-core build",
     "build:cli": "pnpm --filter @develoverli/remotry-cli build",
-    "build:vscode": "pnpm --filter remotry-vscode compile",
-    "package:vscode": "pnpm --filter remotry-vscode package",
+    "build:vscode": "pnpm --filter remotry compile",
+    "package:vscode": "pnpm --filter remotry package",
     "cli": "pnpm --filter @develoverli/remotry-cli start",
     "clean": "pnpm -r exec rm -rf dist out"
   },

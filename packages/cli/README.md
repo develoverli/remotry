@@ -14,7 +14,7 @@ rollbacks.
 Part of the [Remotry](https://github.com/develoverli/remotry) workspace. For the
 programmatic API see [`@develoverli/remotry-core`](https://www.npmjs.com/package/@develoverli/remotry-core);
 for an in-editor experience, install the
-[**Remotry** VSCode extension](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode)
+[**Remotry Deploy** VSCode extension](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry)
 — it shares the same project registry as this CLI.
 
 ## Install
