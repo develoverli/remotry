@@ -8,8 +8,7 @@
 The `remotry` command builds your project locally and ships the build output to
 a remote server over SSH/SFTP — no `rsync` or `scp` binary required. It
 auto-detects your stack and package manager, remembers your projects, and
-versions every deploy behind an atomic `current` symlink for zero-downtime
-rollbacks.
+keeps every deploy as a release so you can roll back without uploading again.
 
 Part of the [Remotry](https://github.com/develoverli/remotry) workspace. For the
 programmatic API see [`@develoverli/remotry-core`](https://www.npmjs.com/package/@develoverli/remotry-core);
@@ -32,7 +31,7 @@ remotry deploy <name>            # build + ship
 > maintained (last version `1.0.2`) — run `npm uninstall -g remotry-cli` and
 > install this one. The `remotry` command is unchanged.
 
-Requires **Node.js 18+**.
+Requires **Node.js 20.19+** (the CLI depends on ESM-only packages such as `chalk`, `ora`, and `inquirer`).
 
 ## Commands
 

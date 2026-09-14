@@ -12,7 +12,7 @@ Remotry is a pnpm workspace with three packages:
 
 ## Setup
 
-Requirements: **Node.js 18+**, **pnpm 10+**.
+Requirements: **Node.js 20.19+**, **pnpm 10+**.
 
 ```bash
 git clone https://github.com/develoverli/remotry.git

@@ -22,7 +22,7 @@ This is a pnpm workspace with three packages:
 |---------|---------|
 | [`@develoverli/remotry-core`](packages/core/) | Pure deployment logic — no CLI or UI dependency, framework-agnostic |
 | [`@develoverli/remotry-cli`](packages/cli/) | Commander-based CLI — installs the `remotry` binary |
-| [`remotry`](packages/vscode/) | [VSCode extension](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry) — sidebar tree, WebView register form, in-process deploy (no subprocess spawn) |
+| [`remotry`](packages/vscode/) | [VSCode extension](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry) — sidebar panel with a card per project, WebView register form, in-process deploy (no subprocess spawn) |
 
 ## Features
 
@@ -334,7 +334,7 @@ for await (const event of deployProject("my-app")) {
 
 ## Requirements
 
-- **Node.js 18+**
+- **Node.js 20.19+** for the CLI and for developing Remotry (`@develoverli/remotry-core` alone runs on Node.js 18+)
 - **An SSH login** (key, password, or ssh-agent) for SSH targets, or **write access** to the folder for folder targets
 - **VSCode 1.80+** for the extension
 

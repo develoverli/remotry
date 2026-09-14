@@ -9,6 +9,14 @@ Versions apply to `@develoverli/remotry-core`, `@develoverli/remotry-cli`, and t
 
 ## [Unreleased]
 
+### Changed
+
+- **CLI:** requires Node.js 20.19 or newer (`engines.node: ">=20.19.0"`). Its dependencies
+  `chalk`, `ora`, and `inquirer` are ESM-only and `inquirer` itself needs Node.js 20.12+, so the
+  CLI never worked on Node.js 18 (end of life since April 2025). `@develoverli/remotry-core`
+  still supports Node.js 18+.
+- **CI:** test matrix is now Node.js 20, 22, and 24.
+
 ## [1.1.0] - 2026-09-14
 
 ### Added
