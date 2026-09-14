@@ -2,17 +2,17 @@
   "name": "remotry-vscode",
   "displayName": "Remotry",
   "description": "Deploy projects to remote servers over SSH/SFTP — register, build, and ship from VSCode",
-  "version": "1.0.2",
-  "publisher": "coldevotion",
+  "version": "1.0.3",
+  "publisher": "develoverli",
   "license": "MIT",
   "icon": "media/icon.png",
-  "homepage": "https://github.com/coldevotion/remotry#readme",
+  "homepage": "https://github.com/develoverli/remotry#readme",
   "bugs": {
-    "url": "https://github.com/coldevotion/remotry/issues"
+    "url": "https://github.com/develoverli/remotry/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/coldevotion/remotry.git",
+    "url": "https://github.com/develoverli/remotry.git",
     "directory": "packages/vscode"
   },
   "engines": {
@@ -20,6 +20,14 @@
   },
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "deploy",
+    "deployment",
+    "ssh",
+    "sftp",
+    "remote",
+    "rollback"
   ],
   "main": "./out/extension.js",
   "activationEvents": [

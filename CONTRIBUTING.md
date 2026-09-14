@@ -1,6 +1,10 @@
 # Contributing to Remotry
 
-Thanks for considering a contribution. Remotry is a pnpm workspace with three packages:
+Thanks for considering a contribution. Please read and follow our
+[Code of Conduct](CODE_OF_CONDUCT.md). To report a security vulnerability, do
+**not** open a public issue — see [SECURITY.md](SECURITY.md).
+
+Remotry is a pnpm workspace with three packages:
 
 - `packages/core` — pure deployment logic (no UI dependency)
 - `packages/cli` — Commander-based CLI wrapper
@@ -8,10 +12,10 @@ Thanks for considering a contribution. Remotry is a pnpm workspace with three pa
 
 ## Setup
 
-Requirements: **Node.js 18+**, **pnpm 8+**.
+Requirements: **Node.js 18+**, **pnpm 10+**.
 
 ```bash
-git clone https://github.com/coldevotion/remotry.git
+git clone https://github.com/develoverli/remotry.git
 cd remotry
 pnpm install
 pnpm -r build
@@ -42,11 +46,11 @@ Example: add a `prune` action that removes old `.deploy-history/` entries on the
 
 ```bash
 pnpm -r build                                  # all packages
-pnpm --filter remotry-cli build           # CLI only
+pnpm --filter remotry-cli build                # CLI only
 pnpm --filter remotry-vscode compile           # VSCode (typecheck + esbuild)
 pnpm --filter remotry-vscode bundle:prod       # production bundle
 
-node packages/cli/dist/cli.js --version        # 1.0.0
+node packages/cli/dist/cli.js --version        # prints the CLI package version
 node packages/cli/dist/cli.js list             # smoke test
 ```
 
@@ -79,16 +83,16 @@ docs(readme): clarify pnpm setup step
 ## Releasing (maintainers)
 
 1. Bump versions in `packages/{core,cli,vscode}/package.json` (keep CLI + core in sync; the extension versions independently).
-2. Update `CHANGELOG.md` (if present).
+2. Move the `Unreleased` entries in [`CHANGELOG.md`](CHANGELOG.md) under the new version heading.
 3. `pnpm -r build && pnpm --filter remotry-vscode bundle:prod && pnpm --filter remotry-vscode package`.
 4. Publish the npm packages: `pnpm --filter remotry-core publish && pnpm --filter remotry-cli publish`.
 5. (VSCode Marketplace) `cd packages/vscode && pnpm publish` — requires a `vsce` PAT.
 
 ## Issues + PRs
 
-- Bug reports: include OS, Node version, pnpm version, and the CLI/extension version.
-- Feature requests: explain the use case before proposing an API.
-- PRs: keep them focused. One concern per PR.
+- Bug reports: use the **Bug report** issue template — include OS, Node version, pnpm version, and the CLI/extension version.
+- Feature requests: use the **Feature request** template and explain the use case before proposing an API.
+- PRs: keep them focused (one concern per PR) and fill in the pull request template.
 
 ## License
 

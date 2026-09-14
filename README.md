@@ -2,6 +2,9 @@
 
 > **Deploy any project to a remote server over SSH/SFTP — from your terminal or from VSCode.**
 
+[![CI](https://github.com/develoverli/remotry/actions/workflows/ci.yml/badge.svg)](https://github.com/develoverli/remotry/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/remotry-cli.svg)](https://www.npmjs.com/package/remotry-cli)
+[![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/develoverli.remotry-vscode?label=VS%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![pnpm](https://img.shields.io/badge/pnpm-workspace-orange)](https://pnpm.io/workspaces)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue)](https://www.typescriptlang.org/)
@@ -19,7 +22,7 @@ This is a pnpm workspace with three packages:
 |---------|---------|
 | [`remotry-core`](packages/core/) | Pure deployment logic — no CLI or UI dependency, framework-agnostic |
 | [`remotry-cli`](packages/cli/) | Commander-based CLI — installs the `remotry` binary |
-| [`remotry-vscode`](packages/vscode/) | [VSCode extension](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry-vscode) — sidebar tree, WebView register form, in-process deploy (no subprocess spawn) |
+| [`remotry-vscode`](packages/vscode/) | [VSCode extension](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode) — sidebar tree, WebView register form, in-process deploy (no subprocess spawn) |
 
 ## Features
 
@@ -47,11 +50,11 @@ remotry deploy <name>            # build + ship
 ### VSCode extension
 
 Install **Remotry** from the
-[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry-vscode),
+[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode),
 or from the editor:
 
 ```
-ext install coldevotion.remotry-vscode
+ext install develoverli.remotry-vscode
 ```
 
 The extension imports `remotry-core` and deploys **in-process** — no CLI install
@@ -231,12 +234,12 @@ Without it, `ssh2` falls back to pure JavaScript — slower but fully functional
 ## Development
 
 ```bash
-git clone https://github.com/coldevotion/remotry.git
+git clone https://github.com/develoverli/remotry.git
 cd remotry
 pnpm install
-pnpm -r build                        # build all packages
-pnpm --filter remotry-cli build     # build only the CLI
-pnpm --filter remotry-vscode compile # build the VSCode extension (esbuild bundle)
+pnpm -r build                         # build all packages
+pnpm --filter remotry-cli build       # build only the CLI
+pnpm --filter remotry-vscode compile  # build the VSCode extension (esbuild bundle)
 ```
 
 Run the CLI from source:
@@ -258,9 +261,16 @@ pnpm watch                       # esbuild --watch
 
 Contributions are welcome — bug reports, feature requests, docs, and pull
 requests all help. Open an issue at
-[github.com/coldevotion/remotry/issues](https://github.com/coldevotion/remotry/issues)
+[github.com/develoverli/remotry/issues](https://github.com/develoverli/remotry/issues)
 to discuss a change first, then see [CONTRIBUTING.md](CONTRIBUTING.md) for the
-dev setup and workflow.
+dev setup and workflow. All participants are expected to follow the
+[Code of Conduct](CODE_OF_CONDUCT.md). Release notes live in
+[CHANGELOG.md](CHANGELOG.md).
+
+## Security
+
+Found a vulnerability? Please **do not** open a public issue — report it
+privately as described in [SECURITY.md](SECURITY.md).
 
 ## License
 

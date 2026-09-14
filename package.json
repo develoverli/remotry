@@ -1,18 +1,18 @@
 {
   "name": "remotry",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "private": true,
   "description": "Remotry monorepo — core deploy engine, CLI, and VSCode extension",
-  "homepage": "https://github.com/coldevotion/remotry#readme",
+  "homepage": "https://github.com/develoverli/remotry#readme",
   "bugs": {
-    "url": "https://github.com/coldevotion/remotry/issues"
+    "url": "https://github.com/develoverli/remotry/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coldevotion/remotry.git"
+    "url": "git+https://github.com/develoverli/remotry.git"
   },
   "license": "MIT",
-  "author": "coldevotion",
+  "author": "develoverli",
   "engines": {
     "node": ">=18"
   },

@@ -11,10 +11,10 @@ auto-detects your stack and package manager, remembers your projects, and
 versions every deploy behind an atomic `current` symlink for zero-downtime
 rollbacks.
 
-Part of the [Remotry](https://github.com/coldevotion/remotry) workspace. For the
+Part of the [Remotry](https://github.com/develoverli/remotry) workspace. For the
 programmatic API see [`remotry-core`](https://www.npmjs.com/package/remotry-core);
 for an in-editor experience, install the
-[**Remotry** VSCode extension](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry-vscode)
+[**Remotry** VSCode extension](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode)
 — it shares the same project registry as this CLI.
 
 ## Install
@@ -94,15 +94,15 @@ Projects live in a shared global registry at `~/.remotry/projects.json` (used by
 both the CLI and the VSCode extension). You can also commit a per-workspace
 `.deployrc` so teammates inherit the deploy config.
 
-See the [full documentation](https://github.com/coldevotion/remotry#readme) for
+See the [full documentation](https://github.com/develoverli/remotry#readme) for
 auto-detection rules, `.deployrc` format, and the remote layout.
 
 ## Contributing
 
 Contributions welcome — issues, feature requests, and PRs. See
-[CONTRIBUTING.md](https://github.com/coldevotion/remotry/blob/main/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/develoverli/remotry/blob/main/CONTRIBUTING.md)
 and open an issue at
-[github.com/coldevotion/remotry/issues](https://github.com/coldevotion/remotry/issues).
+[github.com/develoverli/remotry/issues](https://github.com/develoverli/remotry/issues).
 
 ## License
 

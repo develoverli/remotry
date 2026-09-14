@@ -1,6 +1,6 @@
 {
   "name": "remotry-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Remotry CLI — deploy any project to a remote server over SSH/SFTP",
   "keywords": [
     "deploy",
@@ -11,17 +11,17 @@
     "remote",
     "ci"
   ],
-  "homepage": "https://github.com/coldevotion/remotry#readme",
+  "homepage": "https://github.com/develoverli/remotry#readme",
   "bugs": {
-    "url": "https://github.com/coldevotion/remotry/issues"
+    "url": "https://github.com/develoverli/remotry/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coldevotion/remotry.git",
+    "url": "git+https://github.com/develoverli/remotry.git",
     "directory": "packages/cli"
   },
   "license": "MIT",
-  "author": "coldevotion",
+  "author": "develoverli",
   "main": "dist/cli.js",
   "bin": {
     "remotry": "dist/cli.js"

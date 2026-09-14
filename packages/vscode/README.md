@@ -2,11 +2,11 @@
 
 > **Build your project and ship it to a remote server over SSH/SFTP — without leaving the editor.**
 
-[![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/coldevotion.remotry-vscode?label=VS%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry-vscode)
+[![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/develoverli.remotry-vscode?label=VS%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Deploy projects to remote servers over SSH/SFTP, directly from VSCode. Part of
-the [Remotry](https://github.com/coldevotion/remotry) toolkit.
+the [Remotry](https://github.com/develoverli/remotry) toolkit.
 
 ## What it does
 
@@ -26,11 +26,11 @@ registry as the CLI, so a project registered in either shows up in both.
 From the editor: `Ctrl+P` → paste and run
 
 ```
-ext install coldevotion.remotry-vscode
+ext install develoverli.remotry-vscode
 ```
 
 Or install from the
-[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=coldevotion.remotry-vscode).
+[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode).
 
 ## Features
 
@@ -91,9 +91,9 @@ code --install-extension remotry-vscode-*.vsix
 ## Contributing
 
 Contributions welcome — issues, feature requests, and PRs. See
-[CONTRIBUTING.md](https://github.com/coldevotion/remotry/blob/main/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/develoverli/remotry/blob/main/CONTRIBUTING.md)
 and open an issue at
-[github.com/coldevotion/remotry/issues](https://github.com/coldevotion/remotry/issues).
+[github.com/develoverli/remotry/issues](https://github.com/develoverli/remotry/issues).
 
 ## License
 

@@ -12,12 +12,15 @@ import { deployAllCommand } from "./commands/deploy-all";
 import { rollbackCommand } from "./commands/rollback";
 import { logger } from "./utils/logger";
 
+// Read at runtime so `--version` always matches the published package.json.
+const { version } = require("../package.json") as { version: string };
+
 const program = new Command();
 
 program
   .name("remotry")
   .description("Deploy any project to a remote server over SSH/SFTP")
-  .version("1.0.0");
+  .version(version);
 
 program.addCommand(initCommand);
 program.addCommand(registerCommand);

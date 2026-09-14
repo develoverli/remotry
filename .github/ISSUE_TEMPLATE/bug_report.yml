@@ -1,0 +1,81 @@
+name: Bug report
+description: Something in Remotry is not working as expected
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please search
+        [existing issues](https://github.com/develoverli/remotry/issues) first.
+        **Never paste private keys, passwords, or real hostnames you want to keep private.**
+  - type: dropdown
+    id: package
+    attributes:
+      label: Affected package
+      multiple: true
+      options:
+        - remotry-cli
+        - remotry-vscode
+        - remotry-core
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the bug.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. remotry register my-app --remote deploy@example.com:/var/www/my-app
+        2. remotry deploy my-app
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output / logs
+      description: Redact secrets. This is rendered as code.
+      render: shell
+  - type: input
+    id: remotry-version
+    attributes:
+      label: Remotry version
+      placeholder: "remotry --version, or the extension version"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "e.g. Windows 11, macOS 15, Ubuntu 24.04"
+    validations:
+      required: true
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js version
+      placeholder: "node --version"
+    validations:
+      required: true
+  - type: input
+    id: pnpm-version
+    attributes:
+      label: Package manager and version
+      placeholder: "e.g. pnpm 10.12.1"
+  - type: input
+    id: vscode-version
+    attributes:
+      label: VSCode version (extension bugs only)
