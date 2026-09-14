@@ -28,6 +28,10 @@ This is a pnpm workspace with three packages:
 
 - **Auto-detect** project type and package manager (`pnpm` / `npm` / `yarn` / `bun`) from your lockfile
 - **SSH/SFTP upload** via `ssh2` — pure JavaScript, no external binary
+- **Any SSH login**: key file (with optional passphrase), password, or ssh-agent
+- **Folder targets**: deploy to a local disk or network share (`\\server\site`) with no SSH at all
+- **Versioned releases + rollback** for both SSH and folder targets
+- **Secrets never touch project files**: VSCode keeps them in your system keychain; the CLI prompts or reads env vars
 - **Interactive wizard** (`remotry init`) for first-time setup
 - **In-process deploy from VSCode** — the extension imports `@develoverli/remotry-core` directly, no shelling out
 - **Per-workspace `.deployrc`** (commit-friendly) or a global registry at `~/.remotry/projects.json`
@@ -67,6 +71,16 @@ icon** (server with an upload arrow) in the activity bar to open the **Deploy Pr
 project in a form, then deploy it with one click. It shares the same
 `~/.remotry/projects.json` registry as the CLI, so projects show up in both.
 
+No terminal needed:
+
+- **A card per project** in the sidebar, with the project for the open workspace first
+- **Big Deploy button** plus Roll back, Test connection, Edit, and a menu for Status, Reveal folder, and Remove
+- **Live progress on the card**: current step, a file progress bar, and the last log lines
+- **Failures you can act on**: the error stays on the card with Show log and Retry, plus "How to fix" steps for common problems (also printed by the CLI)
+- **Status bar button** (`Deploy <project>`) for the project registered for the open workspace
+- **Test connection** from the register form before saving
+- **Roll back** by picking a release from a list
+
 You can also build the `.vsix` from source (see [Development](#development)).
 
 ## CLI commands
@@ -75,23 +89,30 @@ You can also build the `.vsix` from source (see [Development](#development)).
 |---------|-------------|
 | `init [name]` | Interactive setup wizard |
 | `register <name> [options]` | Register/update a project without prompts |
-| `deploy <name>` | Build and SFTP-upload the build output |
+| `deploy <name>` | Build and upload (SFTP) or copy (folder) the build output |
 | `deploy <name> --dry-run` | Show what would be deployed, without uploading |
 | `deploy-all [--filter <pattern>] [--sequential]` | Deploy every registered project |
 | `list [--json]` | List registered projects |
 | `status <name>` | Show config and last-deploy time |
 | `update <name>` | Print the current config (use `register --update` to change it) |
 | `remove <name>` | Unregister a project |
-| `rollback <name>` | Repoint `current` to the previous release |
-| `rollback <name> --list` | List releases on the remote (`*` marks the live one) |
-| `rollback <name> --version <name>` | Repoint `current` to a specific release |
+| `rollback <name>` | Go back to the previous release |
+| `rollback <name> --list` | List stored releases (`*` marks the live one) |
+| `rollback <name> --version <name>` | Go back to a specific release |
 
 ### `register` options
 
 | Flag | Description | Default |
 |------|-------------|---------|
 | `--local <path>` | Local project path | `.` |
-| `--remote <path>` | Remote destination as `user@host:/path` | — (required) |
+| `--target-type <type>` | `ssh` or `folder` | `ssh` (or `folder` when only `--folder` is given) |
+| `--remote <path>` | Remote destination as `user@host:/path` | — (required for `ssh`) |
+| `--auth <method>` | SSH login: `key`, `password`, or `agent` | `key` |
+| `--folder <path>` | Target folder, local or UNC share | — (required for `folder`) |
+| `--backup-path <path>` | Releases folder for rollback (folder targets and `copy` activation) | `<target>.remotry-releases` |
+| `--activation <mode>` | SSH: `copy` files into the remote path, or `symlink` a `current` folder | `copy` |
+| `--upload-mode <mode>` | SSH: `archive` (one `.tar.gz`) or `files` (one by one) | `archive` |
+| `--post-deploy <cmd>` | Command to run after a release goes live (and after rollback) | *(none)* |
 | `--build-command <cmd>` | Build command | `pnpm build` |
 | `--build-path <path>` | Build output directory to upload | `./dist` |
 | `--install-command <cmd>` | Install command run before build | *(none)* |
@@ -113,6 +134,32 @@ remotry register my-app \
 
 remotry deploy my-app
 ```
+
+## Authentication and targets
+
+| Scenario | Register with | What happens at deploy |
+|---|---|---|
+| SSH key file | `--auth key --key ~/.ssh/id_ed25519` | Connects with the key. If the key has a passphrase, you are asked for it |
+| SSH password | `--auth password` | You are asked for the password (hidden input) |
+| Keys already loaded in an agent | `--auth agent` | Uses `SSH_AUTH_SOCK`, or the OpenSSH agent pipe on Windows. Nothing to type |
+| Local or network folder, no SSH | `--folder '\\fileserver\sites\my-app'` | Copies the build using your OS account's file permissions |
+
+**Passwords and passphrases are never written to `projects.json` or `.deployrc`.**
+
+- **VSCode** stores them in the system keychain (via VSCode secret storage), only after you choose *Remember*. A wrong saved password is forgotten and you are asked again.
+- **CLI** asks with a hidden prompt, or reads environment variables for CI:
+
+  | Variable | Used for |
+  |---|---|
+  | `REMOTRY_PASSWORD_<PROJECT>` | Password for one project (`my-app` → `REMOTRY_PASSWORD_MY_APP`) |
+  | `REMOTRY_PASSWORD` | Password fallback for any project |
+  | `REMOTRY_PASSPHRASE_<PROJECT>` / `REMOTRY_PASSPHRASE` | SSH key passphrase |
+
+  ```bash
+  export REMOTRY_PASSWORD_MY_APP='s3cret' && remotry deploy my-app
+  ```
+
+Using Pageant on Windows? Set `SSH_AUTH_SOCK=pageant` before starting VSCode or the CLI.
 
 ## Auto-detection
 
@@ -142,6 +189,23 @@ Project type is inferred from signature files:
 | `Dockerfile` | docker | — |
 | `composer.json` | php | — |
 
+### Next.js standalone
+
+When `next.config` sets `output: "standalone"` and **Build output** is `.next` or
+`.next/standalone`, Remotry deploys only what the server needs, assembled the way the
+[Next.js docs](https://nextjs.org/docs/app/api-reference/config/next-config-js/output)
+describe:
+
+- `.next/standalone` (the server and its traced `node_modules`)
+- `.next/static` copied to `.next/static` next to `server.js`
+- `public` copied next to `server.js`
+
+The build cache and intermediate files in `.next` are never uploaded. pnpm symlinks inside
+standalone (which point back to your machine) are replaced by the traced files, and
+monorepos are supported (`server.js` is found wherever Next.js placed it). Start the app on
+the server with `node server.js` from the deployed folder, and use a post-deploy command
+such as `pm2 restart my-app` to restart it after each deploy.
+
 ## Configuration
 
 ### Global registry
@@ -160,12 +224,20 @@ VSCode register form prefill from it:
   "buildCommand": "pnpm build",
   "buildPath": "./dist",
   "installCommand": "pnpm install",
+  "targetType": "ssh",
+  "authMethod": "key",
   "remoteHost": "example.com",
   "remoteUser": "deploy",
   "remotePath": "/var/www/my-app",
   "sshKey": "~/.ssh/id_rsa"
 }
 ```
+
+Optional fields: `"activation"` (`"copy"` or `"symlink"`), `"uploadMode"` (`"archive"` or
+`"files"`), `"backupPath"` (releases folder), and `"postDeployCommand"`.
+
+For a folder target, use `"targetType": "folder"` with `"folderPath"` (and optionally
+`"backupPath"`) instead of the `remote*` and `sshKey` fields. Never put passwords in this file.
 
 Commit this file so teammates inherit the deploy config — typically only the
 SSH key path needs a local override.
@@ -174,16 +246,47 @@ SSH key path needs a local override.
 
 1. **Install** — runs `installCommand` (if set) in the local project path
 2. **Build** — runs `buildCommand` in the local project path
-3. **Upload** — recursively SFTP-copies `buildPath` into a new timestamped release
-   directory: `remotePath/releases/<timestamp>/`
-4. **Activate** — atomically repoints the `remotePath/current` symlink at the new release
+3. **Upload** — SSH: sends `buildPath` as one `.tar.gz` archive (or file by file with
+   `uploadMode: "files"`, or when the server has no `tar`) into a new timestamped release.
+   Folder: copies it into `backupPath/<timestamp>/`
+4. **Activate** — makes the release live (see the layouts below); if a folder copy fails,
+   the previous release is restored
 5. **Prune** — removes releases beyond the five most recent
-6. **Record** — writes the `lastDeploy` timestamp to the global registry
+6. **Post-deploy** — runs `postDeployCommand` (if set), e.g. `pm2 restart my-app`: on the
+   server for SSH targets, on your machine for folder targets. It also runs after a rollback
+7. **Record** — writes the deploy time and result (`success` / `failed`) to the global registry
 
-### Remote layout
+Roll back without re-uploading anything:
 
-Deploys are versioned. `remotePath` becomes a container, and the live version is
-always `remotePath/current`:
+```bash
+remotry rollback my-app --list            # see releases (* = live)
+remotry rollback my-app                   # go to the previous release
+remotry rollback my-app --version <name>  # go to a specific release
+```
+
+### SSH layout: `activation: "copy"` (default)
+
+Your app keeps running from the folder you chose. Remotry puts the real files there and
+keeps every release next to it:
+
+```
+/var/www/
+├── my-app/                        ← your app / web server points here (unchanged)
+└── my-app.remotry-releases/
+    ├── 0000-pre-remotry/          ← what was there before the first deploy
+    ├── 2026-07-13T10-00-00-000Z/
+    ├── 2026-07-13T12-30-00-000Z/  ← live
+    └── .current
+```
+
+A release goes live by copying it next to `my-app/` on the server and swapping the two
+folders with renames, so the app never sees a mix of old and new files. If the SSH user
+cannot write to the parent folder, Remotry syncs the files in place instead.
+
+### SSH layout: `activation: "symlink"`
+
+`remotePath` becomes a container and the live version is always `remotePath/current`.
+Switching releases is an atomic symlink swap. Projects registered before 1.1.0 use this layout.
 
 ```
 remotePath/
@@ -193,14 +296,26 @@ remotePath/
 └── current -> releases/2026-07-13T12-30-00-000Z/
 ```
 
-> **Point your web server (or process manager) at `remotePath/current`.**
-> Rolling back is then an atomic symlink swap — no re-upload, no downtime:
->
-> ```bash
-> remotry rollback my-app --list          # see releases (* = live)
-> remotry rollback my-app                 # go to the previous release
-> remotry rollback my-app --version <name>  # go to a specific release
-> ```
+> **With this layout, point your web server (or process manager) at `remotePath/current`.**
+
+### Folder layout
+
+Folder targets cannot rely on symlinks (network shares often reject them), so the
+target folder always holds real files and every release is kept next to it:
+
+```
+\\fileserver\sites\
+├── my-app\                         ← your web server points here
+└── my-app.remotry-releases\
+    ├── 0000-pre-remotry\           ← what was there before the first deploy
+    ├── 2026-07-13T10-00-00-000Z\
+    ├── 2026-07-13T12-30-00-000Z\   ← live
+    └── .current
+```
+
+Rollback copies the chosen release back into the target folder. The releases folder
+must be **outside** the target folder so the web server never exposes old releases;
+Remotry refuses a layout that breaks this rule.
 
 ## Programmatic use
 
@@ -220,8 +335,7 @@ for await (const event of deployProject("my-app")) {
 ## Requirements
 
 - **Node.js 18+**
-- **SSH key authentication** (recommended; password auth is supported by the
-  core client but not exposed through the CLI)
+- **An SSH login** (key, password, or ssh-agent) for SSH targets, or **write access** to the folder for folder targets
 - **VSCode 1.80+** for the extension
 
 ### Optional native acceleration

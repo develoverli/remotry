@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { getProjectStatus } from "@develoverli/remotry-core";
+import { describeTarget, getProjectStatus } from "@develoverli/remotry-core";
 import { logger } from "../utils/logger";
 
 export const updateCommand = new Command("update")
@@ -10,7 +10,7 @@ export const updateCommand = new Command("update")
       const { project } = getProjectStatus(name);
       logger.info(`Project "${name}" current configuration:`);
       logger.info(`  Local path:    ${project.localPath}`);
-      logger.info(`  Remote:        ${project.remoteUser}@${project.remoteHost}:${project.remotePath}`);
+      logger.info(`  Target:        ${describeTarget(project)}`);
       logger.info(`  Build command: ${project.buildCommand}`);
       logger.info(`  Build path:    ${project.buildPath}`);
       logger.info(`  Type:          ${project.projectType}${project.framework ? ` (${project.framework})` : ""}`);

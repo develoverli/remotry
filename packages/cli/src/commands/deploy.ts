@@ -1,6 +1,8 @@
 import { Command } from "commander";
 import { deployProject } from "@develoverli/remotry-core";
 import { logger } from "../utils/logger";
+import { resolveCredentials } from "../utils/credentials";
+import { printHint } from "../utils/hints";
 
 export const deployCommand = new Command("deploy")
   .description("Build and deploy a project to remote server")
@@ -9,7 +11,8 @@ export const deployCommand = new Command("deploy")
   .action(async (name: string, options: { dryRun?: boolean }) => {
     try {
       logger.section(`Deploying "${name}"`);
-      for await (const event of deployProject(name, { dryRun: options.dryRun })) {
+      const credentials = options.dryRun ? {} : await resolveCredentials(name);
+      for await (const event of deployProject(name, { dryRun: options.dryRun, credentials })) {
         switch (event.type) {
           case "step":
             logger.step(`${event.current}/${event.total}`, event.message);
@@ -25,7 +28,12 @@ export const deployCommand = new Command("deploy")
             break;
           case "progress":
             // Spinner-like update on same line
-            process.stdout.write(`\r  ${event.current}/${event.total} ${event.file.padEnd(60).slice(0, 60)}`);
+            if (event.unit === "bytes") {
+              const mb = (n: number) => (n / 1024 / 1024).toFixed(1);
+              process.stdout.write(`\r  ${mb(event.current)} / ${mb(event.total)} MB  ${Math.round((event.current / event.total) * 100)}%   `);
+            } else {
+              process.stdout.write(`\r  ${event.current}/${event.total} ${event.file.padEnd(60).slice(0, 60)}`);
+            }
             if (event.current === event.total) process.stdout.write("\n");
             break;
           case "error":
@@ -39,7 +47,9 @@ export const deployCommand = new Command("deploy")
         }
       }
     } catch (error) {
-      logger.error(error instanceof Error ? error.message : "Unknown error");
+      const message = error instanceof Error ? error.message : "Unknown error";
+      logger.error(message);
+      printHint(message, name);
       process.exit(1);
     }
   });

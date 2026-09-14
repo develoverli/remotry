@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { listProjects, relativeTime, ProjectConfig } from "@develoverli/remotry-core";
+import { describeTarget, listProjects, relativeTime, ProjectConfig } from "@develoverli/remotry-core";
 import { logger } from "../utils/logger";
 import chalk from "chalk";
 
@@ -24,15 +24,17 @@ export const listCommand = new Command("list")
     logger.section("Registered Projects");
     console.log();
 
-    const cols = [chalk.bold("Name"), chalk.bold("Type"), chalk.bold("Remote"), chalk.bold("Last Deploy")];
+    const cols = [chalk.bold("Name"), chalk.bold("Type"), chalk.bold("Target"), chalk.bold("Last Deploy")];
     console.log(`  ${cols.join("  │  ")}`);
     console.log(chalk.gray("  " + "─".repeat(100)));
 
     for (const name of names.sort()) {
       const p: ProjectConfig = projects[name];
       const typeLabel = (p.framework ?? p.projectType ?? "unknown");
-      const remoteLabel = `${p.remoteUser ?? "?"}@${p.remoteHost ?? "?"}:${p.remotePath ?? "?"}`;
-      const deployLabel = p.lastDeploy ? relativeTime(p.lastDeploy) : chalk.gray("never");
+      const remoteLabel = describeTarget(p) || "?";
+      const deployLabel = p.lastDeployStatus === "failed"
+        ? chalk.red("failed")
+        : p.lastDeploy ? relativeTime(p.lastDeploy) : chalk.gray("never");
       const row = [
         chalk.cyan(p.name.padEnd(18)),
         typeLabel.padEnd(14),

@@ -8,6 +8,11 @@ import {
   detectProjectType,
   getProjectDisplayName,
   loadProjectDeployrc,
+  defaultBackupPath,
+  defaultRemoteBackupPath,
+  Activation,
+  AuthMethod,
+  TargetType,
 } from "@develoverli/remotry-core";
 import { logger } from "../utils/logger";
 
@@ -70,22 +75,112 @@ export const initCommand = new Command("init")
         { type: "input", name: "installCommand", message: "Install command (e.g. pnpm install):", default: rc?.installCommand || detected?.installCommand || "" },
       ]);
 
-      const defaultRemote = rc?.remoteUser && rc?.remoteHost && rc?.remotePath
-        ? `${rc.remoteUser}@${rc.remoteHost}:${rc.remotePath}`
-        : "";
-      const { remote } = await inquirer.prompt<{ remote: string }>([
+      const { targetType } = await inquirer.prompt<{ targetType: TargetType }>([
         {
-          type: "input",
-          name: "remote",
-          message: "Remote destination (user@host:/path):",
-          default: defaultRemote,
-          validate: (v: string) => (v.includes("@") && v.includes(":")) || "Use format user@host:/path",
+          type: "list",
+          name: "targetType",
+          message: "Deploy target:",
+          choices: [
+            { name: "SSH server", value: "ssh" },
+            { name: "Local or network folder (e.g. \\\\server\\site)", value: "folder" },
+          ],
+          default: rc?.targetType || "ssh",
         },
       ]);
 
-      const defaultKey = path.join(os.homedir(), ".ssh", "id_rsa");
-      const { sshKey } = await inquirer.prompt<{ sshKey: string }>([
-        { type: "input", name: "sshKey", message: "SSH private key path:", default: rc?.sshKey || (fs.existsSync(defaultKey) ? defaultKey : "~/.ssh/id_rsa") },
+      let remote: string | undefined;
+      let authMethod: AuthMethod | undefined;
+      let sshKey: string | undefined;
+      let folderPath: string | undefined;
+      let backupPath: string | undefined;
+      let activation: Activation | undefined;
+
+      if (targetType === "ssh") {
+        const defaultRemote = rc?.remoteUser && rc?.remoteHost && rc?.remotePath
+          ? `${rc.remoteUser}@${rc.remoteHost}:${rc.remotePath}`
+          : "";
+        ({ remote } = await inquirer.prompt<{ remote: string }>([
+          {
+            type: "input",
+            name: "remote",
+            message: "Remote destination (user@host:/path):",
+            default: defaultRemote,
+            validate: (v: string) => (v.includes("@") && v.includes(":")) || "Use format user@host:/path",
+          },
+        ]));
+
+        ({ authMethod } = await inquirer.prompt<{ authMethod: AuthMethod }>([
+          {
+            type: "list",
+            name: "authMethod",
+            message: "How does the server authenticate you?",
+            choices: [
+              { name: "SSH key file", value: "key" },
+              { name: "Password (asked at deploy, never saved)", value: "password" },
+              { name: "ssh-agent (keys already loaded, no prompt)", value: "agent" },
+            ],
+            default: rc?.authMethod || "key",
+          },
+        ]));
+
+        ({ activation } = await inquirer.prompt<{ activation: Activation }>([
+          {
+            type: "list",
+            name: "activation",
+            message: "Where does your app run from on the server?",
+            choices: [
+              { name: "Directly from the remote path (files are copied there)", value: "copy" },
+              { name: "From <remote path>/current (symlink, instant switch)", value: "symlink" },
+            ],
+            default: rc?.activation || "copy",
+          },
+        ]));
+
+        if (activation === "copy") {
+          const remotePathOnly = (remote ?? "").split(":").slice(1).join(":");
+          ({ backupPath } = await inquirer.prompt<{ backupPath: string }>([
+            {
+              type: "input",
+              name: "backupPath",
+              message: "Keep releases for rollback in (must be outside the remote path):",
+              default: rc?.backupPath || defaultRemoteBackupPath(remotePathOnly),
+            },
+          ]));
+        }
+
+        if (authMethod === "key") {
+          const defaultKey = path.join(os.homedir(), ".ssh", "id_rsa");
+          ({ sshKey } = await inquirer.prompt<{ sshKey: string }>([
+            { type: "input", name: "sshKey", message: "SSH private key path:", default: rc?.sshKey || (fs.existsSync(defaultKey) ? defaultKey : "~/.ssh/id_rsa") },
+          ]));
+        }
+      } else {
+        ({ folderPath } = await inquirer.prompt<{ folderPath: string }>([
+          {
+            type: "input",
+            name: "folderPath",
+            message: "Target folder (local path or network share):",
+            default: rc?.folderPath,
+            validate: (v: string) => v.trim().length > 0 || "Required",
+          },
+        ]));
+        ({ backupPath } = await inquirer.prompt<{ backupPath: string }>([
+          {
+            type: "input",
+            name: "backupPath",
+            message: "Keep releases for rollback in (must be outside the target folder):",
+            default: rc?.backupPath || defaultBackupPath(folderPath),
+          },
+        ]));
+      }
+
+      const { postDeployCommand } = await inquirer.prompt<{ postDeployCommand: string }>([
+        {
+          type: "input",
+          name: "postDeployCommand",
+          message: "Command to run after each deploy (optional, e.g. pm2 restart my-app):",
+          default: rc?.postDeployCommand || "",
+        },
       ]);
 
       console.log();
@@ -95,8 +190,11 @@ export const initCommand = new Command("init")
       logger.info(`Type:           ${projectType}`);
       logger.info(`Build command:  ${buildCommand}`);
       logger.info(`Build path:     ${buildPath}`);
-      logger.info(`Remote:         ${remote}`);
-      logger.info(`SSH key:        ${sshKey}`);
+      logger.info(`Target:         ${targetType === "folder" ? folderPath : remote}`);
+      if (targetType === "ssh") logger.info(`Auth:           ${authMethod}${sshKey ? ` (${sshKey})` : ""}`);
+      if (activation) logger.info(`Activation:     ${activation}`);
+      if (backupPath) logger.info(`Releases:       ${backupPath}`);
+      if (postDeployCommand) logger.info(`After deploy:   ${postDeployCommand}`);
       console.log();
 
       const { confirm } = await inquirer.prompt<{ confirm: boolean }>([
@@ -111,6 +209,12 @@ export const initCommand = new Command("init")
         name,
         localPath: resolvedPath,
         remote,
+        targetType,
+        authMethod,
+        folderPath,
+        backupPath,
+        activation,
+        postDeployCommand,
         buildCommand,
         buildPath,
         installCommand,

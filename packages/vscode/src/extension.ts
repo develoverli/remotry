@@ -1,11 +1,22 @@
 import * as vscode from "vscode";
-import { ProjectsTreeDataProvider } from "./tree/treeDataProvider";
 import { registerDeployCommands } from "./commands/deployCommands";
+import { CredentialVault } from "./credentials";
+import { DeployState } from "./deployState";
+import { DeployStatusBar } from "./statusBar";
+import { PROJECTS_VIEW_ID, ProjectsViewProvider } from "./panel/projectsView";
 
 export function activate(context: vscode.ExtensionContext) {
-  const treeDataProvider = new ProjectsTreeDataProvider(context.extensionUri);
-  vscode.window.registerTreeDataProvider("deployProjects", treeDataProvider);
-  registerDeployCommands(context, treeDataProvider);
+  const state = new DeployState();
+  const vault = new CredentialVault(context.secrets);
+  const view = new ProjectsViewProvider(context.extensionUri, state);
+
+  context.subscriptions.push(
+    state,
+    view,
+    vscode.window.registerWebviewViewProvider(PROJECTS_VIEW_ID, view),
+    new DeployStatusBar(state)
+  );
+  registerDeployCommands(context, state, vault, view);
   vscode.commands.executeCommand("setContext", "deploy.active", true);
 }
 

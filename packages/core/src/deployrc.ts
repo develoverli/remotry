@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import path from "path";
 import os from "os";
+import { Activation, AuthMethod, TargetType, UploadMode } from "./types";
 
 export interface GlobalConfig {
   sshKey: string;
@@ -9,9 +10,17 @@ export interface GlobalConfig {
   defaultRemoteBase: string;
 }
 
+/** Commit-friendly project config. Never holds passwords or passphrases. */
 export interface ProjectDeployrc {
   name?: string;
   localPath?: string;
+  targetType?: TargetType;
+  authMethod?: AuthMethod;
+  folderPath?: string;
+  backupPath?: string;
+  activation?: Activation;
+  uploadMode?: UploadMode;
+  postDeployCommand?: string;
   remotePath?: string;
   buildCommand?: string;
   buildPath?: string;

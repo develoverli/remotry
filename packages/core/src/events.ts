@@ -2,7 +2,8 @@ export type DeployEvent =
   | { type: "step"; message: string; current: number; total: number }
   | { type: "info"; message: string }
   | { type: "warn"; message: string }
-  | { type: "progress"; current: number; total: number; file: string }
+  /** `unit` defaults to "files"; archive uploads report "bytes" with `file` naming the archive. */
+  | { type: "progress"; current: number; total: number; file: string; unit?: "files" | "bytes" }
   | { type: "success"; message: string }
   | { type: "error"; message: string }
   | { type: "done"; durationMs: number; filesUploaded?: number };

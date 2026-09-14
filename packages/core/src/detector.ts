@@ -1,5 +1,6 @@
 import fs from "fs-extra";
 import path from "path";
+import { usesNextStandalone } from "./nextStandalone";
 
 export type PackageManager = "pnpm" | "npm" | "yarn" | "bun";
 
@@ -169,7 +170,8 @@ export function detectProjectType(projectPath: string): DetectedProject | null {
           type: "node",
           framework: "next",
           buildCommand: cmds.build,
-          buildPath: ".next",
+          // Standalone builds deploy only .next/standalone (Remotry adds static and public).
+          buildPath: usesNextStandalone(projectPath) ? ".next/standalone" : ".next",
           installCommand: cmds.install,
           packageManager: pm,
         };

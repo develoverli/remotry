@@ -2,6 +2,7 @@ import { Client, ConnectConfig } from "ssh2";
 import fs from "fs-extra";
 import path from "path";
 import os from "os";
+import { AuthenticationError } from "./errors";
 
 export interface SSHConfig {
   host: string;
@@ -10,6 +11,8 @@ export interface SSHConfig {
   password?: string;
   privateKey?: string;
   passphrase?: string;
+  /** ssh-agent socket path, Windows named pipe, or "pageant". */
+  agent?: string;
 }
 
 export class SSHClient {
@@ -30,7 +33,9 @@ export class SSHClient {
         readyTimeout: 30000,
       };
 
-      if (config.password) {
+      if (config.agent) {
+        options.agent = config.agent;
+      } else if (config.password) {
         options.password = config.password;
       } else if (config.privateKey) {
         let keyPath = config.privateKey;
@@ -54,8 +59,13 @@ export class SSHClient {
         resolve();
       });
 
-      this.client.on("error", (err) => {
+      this.client.on("error", (err: Error & { level?: string }) => {
         this.connected = false;
+        if (err.level === "client-authentication") {
+          const kind = config.agent ? "agent" : config.password ? "password" : "key";
+          reject(new AuthenticationError(`SSH authentication failed for ${config.username}@${config.host}`, kind));
+          return;
+        }
         reject(new Error(`SSH connection failed: ${err.message}`));
       });
 
@@ -179,6 +189,35 @@ export class SSHClient {
         };
 
         uploadNext();
+      });
+    });
+  }
+
+  /** Upload a single file, reporting bytes transferred. */
+  async uploadFile(
+    localFile: string,
+    remoteFile: string,
+    onProgress?: (transferred: number, total: number) => void
+  ): Promise<void> {
+    if (!this.connected) {
+      throw new Error("Not connected to SSH server");
+    }
+    await new Promise<void>((resolve, reject) => {
+      this.client.sftp((err, sftp) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        sftp.fastPut(
+          localFile,
+          remoteFile,
+          { step: (transferred: number, _chunk: number, total: number) => onProgress?.(transferred, total) },
+          (putErr: Error | null | undefined) => {
+            sftp.end();
+            if (putErr) reject(new Error(`Failed to upload ${localFile}: ${putErr.message}`));
+            else resolve();
+          }
+        );
       });
     });
   }

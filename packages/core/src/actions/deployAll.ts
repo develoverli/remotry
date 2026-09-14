@@ -1,10 +1,13 @@
 import { store } from "../store";
 import { deployProject } from "./deploy";
 import { DeployAllEvent } from "../events";
+import { Credentials } from "../types";
 
 export interface DeployAllOptions {
   filter?: string;
   sequential?: boolean;
+  /** Supplies secrets per project (password auth or passphrase-protected keys). */
+  credentials?: (name: string) => Credentials | undefined;
 }
 
 export async function* deployAll(options: DeployAllOptions = {}): AsyncGenerator<DeployAllEvent, void, unknown> {
@@ -32,7 +35,7 @@ export async function* deployAll(options: DeployAllOptions = {}): AsyncGenerator
     for (const name of names) {
       yield { type: "project-start", name };
       try {
-        for await (const event of deployProject(name)) {
+        for await (const event of deployProject(name, { credentials: options.credentials?.(name) })) {
           yield { type: "project-event", name, event };
         }
         succeeded++;
@@ -53,7 +56,7 @@ export async function* deployAll(options: DeployAllOptions = {}): AsyncGenerator
       names.map(async (name) => {
         const events: { name: string; event: import("../events").DeployEvent }[] = [];
         try {
-          for await (const event of deployProject(name)) {
+          for await (const event of deployProject(name, { credentials: options.credentials?.(name) })) {
             events.push({ name, event });
           }
           return { name, success: true, events };

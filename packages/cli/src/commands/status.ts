@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { getProjectStatus } from "@develoverli/remotry-core";
+import { activationOf, authMethodOf, describeTarget, getProjectStatus, targetTypeOf, uploadModeOf } from "@develoverli/remotry-core";
 import { logger } from "../utils/logger";
 
 export const statusCommand = new Command("status")
@@ -12,7 +12,13 @@ export const statusCommand = new Command("status")
       const typeLabel = project.framework ? `${project.projectType}/${project.framework}` : project.projectType;
       logger.info(`Type:     ${typeLabel}`);
       logger.info(`Local:    ${project.localPath}`);
-      logger.info(`Remote:   ${project.remoteUser}@${project.remoteHost}:${project.remotePath}`);
+      logger.info(`Target:   ${describeTarget(project)}`);
+      if (targetTypeOf(project) === "ssh") {
+        logger.info(`Auth:     ${authMethodOf(project)}`);
+        logger.info(`Mode:     ${activationOf(project)} activation, ${uploadModeOf(project)} upload`);
+      }
+      if (project.backupPath) logger.info(`Releases: ${project.backupPath}`);
+      if (project.postDeployCommand) logger.info(`After:    ${project.postDeployCommand}`);
       logger.info(`Build:    ${project.buildCommand}`);
       logger.info(`Output:   ${project.buildPath}`);
 
@@ -20,6 +26,9 @@ export const statusCommand = new Command("status")
         logger.warn("Never deployed");
       } else {
         logger.success(`Last deploy: ${lastDeployRelative}`);
+      }
+      if (project.lastDeployStatus === "failed") {
+        logger.error(`Last attempt failed: ${project.lastDeployError ?? "unknown error"}`);
       }
       const created = new Date(project.createdAt).toLocaleString();
       logger.dim(`Registered: ${created}`);
