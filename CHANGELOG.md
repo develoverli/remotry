@@ -15,6 +15,11 @@ Versions apply to `remotry-core`, `remotry-cli`, and `remotry-vscode` unless not
 - Repository moved to [`develoverli/remotry`](https://github.com/develoverli/remotry);
   `homepage`, `bugs`, `repository`, and `author` updated in every package.
 - License copyright holder is now `develoverli`.
+- **npm packages renamed:** `remotry-core` → `@develoverli/remotry-core` and
+  `remotry-cli` → `@develoverli/remotry-cli`. The unscoped packages are no longer
+  maintained (last version `1.0.2`); install the scoped ones instead. The CLI binary
+  is still `remotry`.
+- **VSCode extension:** new Marketplace icon and activity bar icon.
 - **VSCode extension:** Marketplace publisher changed from `coldevotion` to
   `develoverli`. The extension ID is now `develoverli.remotry-vscode`; users of
   `coldevotion.remotry-vscode` must install the new extension to keep receiving updates.

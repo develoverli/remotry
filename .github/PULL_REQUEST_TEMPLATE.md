@@ -13,8 +13,8 @@ Closes #
 
 ## Affected packages
 
-- [ ] `remotry-core`
-- [ ] `remotry-cli`
+- [ ] `@develoverli/remotry-core`
+- [ ] `@develoverli/remotry-cli`
 - [ ] `remotry-vscode`
 
 ## Checklist

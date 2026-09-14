@@ -9,8 +9,8 @@ Only the latest release line receives security fixes.
 
 | Package | Supported |
 |---------|-----------|
-| `remotry-core` latest `1.x` | ✅ |
-| `remotry-cli` latest `1.x` | ✅ |
+| `@develoverli/remotry-core` latest `1.x` | ✅ |
+| `@develoverli/remotry-cli` latest `1.x` | ✅ |
 | `remotry-vscode` latest `1.x` | ✅ |
 | Older versions | ❌ |
 

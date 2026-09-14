@@ -14,9 +14,9 @@ body:
       label: Affected package
       multiple: true
       options:
-        - remotry-cli
+        - "@develoverli/remotry-cli"
         - remotry-vscode
-        - remotry-core
+        - "@develoverli/remotry-core"
     validations:
       required: true
   - type: textarea

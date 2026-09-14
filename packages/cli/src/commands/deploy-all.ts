@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { deployAll } from "remotry-core";
+import { deployAll } from "@develoverli/remotry-core";
 import { logger } from "../utils/logger";
 
 export const deployAllCommand = new Command("deploy-all")

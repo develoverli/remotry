@@ -1,5 +1,5 @@
 {
-  "name": "remotry-core",
+  "name": "@develoverli/remotry-core",
   "version": "1.0.3",
   "description": "Pure deployment logic for Remotry — SSH/SFTP project deploys with no CLI or UI dependency",
   "keywords": [

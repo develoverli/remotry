@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { getProjectStatus } from "remotry-core";
+import { getProjectStatus } from "@develoverli/remotry-core";
 import { logger } from "../utils/logger";
 
 export const updateCommand = new Command("update")

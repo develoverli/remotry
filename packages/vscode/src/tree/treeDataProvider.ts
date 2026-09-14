@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { listProjects, relativeTime, ProjectConfig } from "remotry-core";
+import { listProjects, relativeTime, ProjectConfig } from "@develoverli/remotry-core";
 
 export class ProjectsTreeDataProvider implements vscode.TreeDataProvider<ProjectItem> {
   private _onDidChangeTreeData = new vscode.EventEmitter<ProjectItem | undefined | void>();

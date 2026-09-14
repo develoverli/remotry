@@ -1,5 +1,5 @@
 {
-  "name": "remotry-cli",
+  "name": "@develoverli/remotry-cli",
   "version": "1.0.3",
   "description": "Remotry CLI — deploy any project to a remote server over SSH/SFTP",
   "keywords": [
@@ -43,7 +43,7 @@
     "dev": "tsc && node dist/cli.js"
   },
   "dependencies": {
-    "remotry-core": "workspace:*",
+    "@develoverli/remotry-core": "workspace:*",
     "chalk": "^5.6.2",
     "cli-table3": "^0.6.5",
     "commander": "^12.1.0",

@@ -45,13 +45,13 @@ Example: add a `prune` action that removes old `.deploy-history/` entries on the
 ## Build + test
 
 ```bash
-pnpm -r build                                  # all packages
-pnpm --filter remotry-cli build                # CLI only
-pnpm --filter remotry-vscode compile           # VSCode (typecheck + esbuild)
-pnpm --filter remotry-vscode bundle:prod       # production bundle
+pnpm -r build                                      # all packages
+pnpm --filter @develoverli/remotry-cli build       # CLI only
+pnpm --filter remotry-vscode compile               # VSCode (typecheck + esbuild)
+pnpm --filter remotry-vscode bundle:prod           # production bundle
 
-node packages/cli/dist/cli.js --version        # prints the CLI package version
-node packages/cli/dist/cli.js list             # smoke test
+node packages/cli/dist/cli.js --version            # prints the CLI package version
+node packages/cli/dist/cli.js list                 # smoke test
 ```
 
 ## VSCode extension dev loop
@@ -85,7 +85,7 @@ docs(readme): clarify pnpm setup step
 1. Bump versions in `packages/{core,cli,vscode}/package.json` (keep CLI + core in sync; the extension versions independently).
 2. Move the `Unreleased` entries in [`CHANGELOG.md`](CHANGELOG.md) under the new version heading.
 3. `pnpm -r build && pnpm --filter remotry-vscode bundle:prod && pnpm --filter remotry-vscode package`.
-4. Publish the npm packages: `pnpm --filter remotry-core publish && pnpm --filter remotry-cli publish`.
+4. Publish the npm packages: `pnpm --filter @develoverli/remotry-core publish && pnpm --filter @develoverli/remotry-cli publish`.
 5. (VSCode Marketplace) `cd packages/vscode && pnpm publish` — requires a `vsce` PAT.
 
 ## Issues + PRs

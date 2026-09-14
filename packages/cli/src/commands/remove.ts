@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { removeProject } from "remotry-core";
+import { removeProject } from "@develoverli/remotry-core";
 import { logger } from "../utils/logger";
 
 export const removeCommand = new Command("remove")

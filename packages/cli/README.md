@@ -1,8 +1,8 @@
-# remotry-cli
+# @develoverli/remotry-cli
 
 > **Deploy any project to a remote server over SSH/SFTP — from your terminal.**
 
-[![npm](https://img.shields.io/npm/v/remotry-cli.svg)](https://www.npmjs.com/package/remotry-cli)
+[![npm](https://img.shields.io/npm/v/@develoverli/remotry-cli.svg)](https://www.npmjs.com/package/@develoverli/remotry-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 The `remotry` command builds your project locally and ships the build output to
@@ -12,7 +12,7 @@ versions every deploy behind an atomic `current` symlink for zero-downtime
 rollbacks.
 
 Part of the [Remotry](https://github.com/develoverli/remotry) workspace. For the
-programmatic API see [`remotry-core`](https://www.npmjs.com/package/remotry-core);
+programmatic API see [`@develoverli/remotry-core`](https://www.npmjs.com/package/@develoverli/remotry-core);
 for an in-editor experience, install the
 [**Remotry** VSCode extension](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode)
 — it shares the same project registry as this CLI.
@@ -20,13 +20,17 @@ for an in-editor experience, install the
 ## Install
 
 ```bash
-npm install -g remotry-cli
-# or: pnpm add -g remotry-cli
+npm install -g @develoverli/remotry-cli
+# or: pnpm add -g @develoverli/remotry-cli
 
 remotry --version
 remotry init                     # interactive setup wizard
 remotry deploy <name>            # build + ship
 ```
+
+> **Formerly published as `remotry-cli`.** That unscoped package is no longer
+> maintained (last version `1.0.2`) — run `npm uninstall -g remotry-cli` and
+> install this one. The `remotry` command is unchanged.
 
 Requires **Node.js 18+**.
 

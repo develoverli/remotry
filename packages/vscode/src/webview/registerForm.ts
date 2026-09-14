@@ -9,7 +9,7 @@ import {
   saveProjectDeployrc,
   store,
   RegisterInput,
-} from "remotry-core";
+} from "@develoverli/remotry-core";
 import { ProjectsTreeDataProvider } from "../tree/treeDataProvider";
 
 interface FormDefaults {

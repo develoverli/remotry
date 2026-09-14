@@ -16,9 +16,9 @@ SFTP-uploads the output into a timestamped release, and atomically flips a
 `current` symlink — so rollbacks are instant and deploys have no downtime. No
 `rsync`, no `scp`, no terminal juggling.
 
-The extension imports [`remotry-core`](https://www.npmjs.com/package/remotry-core)
+The extension imports [`@develoverli/remotry-core`](https://www.npmjs.com/package/@develoverli/remotry-core)
 and deploys **in-process** — it does **not** shell out to the CLI, and needs no
-separate `remotry-cli` install. It shares the same `~/.remotry/projects.json`
+separate `@develoverli/remotry-cli` install. It shares the same `~/.remotry/projects.json`
 registry as the CLI, so a project registered in either shows up in both.
 
 ## Install
@@ -47,7 +47,7 @@ Or install from the
 
 ## Quick start
 
-1. Click the **rocket icon** in the activity bar (left sidebar).
+1. Click the **Remotry icon** (server with an upload arrow) in the activity bar (left sidebar).
 2. Use **Register a Project** in the empty state — or `Ctrl+Shift+P` → `Deploy: Register / Edit Project`.
 3. Fill in name, local path, remote (`user@host:/path`), and SSH key.
 4. Click the **deploy** action on the tree item to build and ship.

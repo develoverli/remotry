@@ -3,7 +3,7 @@
 > **Deploy any project to a remote server over SSH/SFTP — from your terminal or from VSCode.**
 
 [![CI](https://github.com/develoverli/remotry/actions/workflows/ci.yml/badge.svg)](https://github.com/develoverli/remotry/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/remotry-cli.svg)](https://www.npmjs.com/package/remotry-cli)
+[![npm](https://img.shields.io/npm/v/@develoverli/remotry-cli.svg)](https://www.npmjs.com/package/@develoverli/remotry-cli)
 [![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/develoverli.remotry-vscode?label=VS%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![pnpm](https://img.shields.io/badge/pnpm-workspace-orange)](https://pnpm.io/workspaces)
@@ -20,8 +20,8 @@ This is a pnpm workspace with three packages:
 
 | Package | Purpose |
 |---------|---------|
-| [`remotry-core`](packages/core/) | Pure deployment logic — no CLI or UI dependency, framework-agnostic |
-| [`remotry-cli`](packages/cli/) | Commander-based CLI — installs the `remotry` binary |
+| [`@develoverli/remotry-core`](packages/core/) | Pure deployment logic — no CLI or UI dependency, framework-agnostic |
+| [`@develoverli/remotry-cli`](packages/cli/) | Commander-based CLI — installs the `remotry` binary |
 | [`remotry-vscode`](packages/vscode/) | [VSCode extension](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode) — sidebar tree, WebView register form, in-process deploy (no subprocess spawn) |
 
 ## Features
@@ -29,7 +29,7 @@ This is a pnpm workspace with three packages:
 - **Auto-detect** project type and package manager (`pnpm` / `npm` / `yarn` / `bun`) from your lockfile
 - **SSH/SFTP upload** via `ssh2` — pure JavaScript, no external binary
 - **Interactive wizard** (`remotry init`) for first-time setup
-- **In-process deploy from VSCode** — the extension imports `remotry-core` directly, no shelling out
+- **In-process deploy from VSCode** — the extension imports `@develoverli/remotry-core` directly, no shelling out
 - **Per-workspace `.deployrc`** (commit-friendly) or a global registry at `~/.remotry/projects.json`
 - **Dry-run** to preview a deploy without uploading
 - **Multi-project deploy** — deploy everything at once, in parallel or sequentially
@@ -39,13 +39,17 @@ This is a pnpm workspace with three packages:
 ### CLI (from npm)
 
 ```bash
-npm install -g remotry-cli
-# or: pnpm add -g remotry-cli
+npm install -g @develoverli/remotry-cli
+# or: pnpm add -g @develoverli/remotry-cli
 
 remotry --version
 remotry init                     # interactive setup wizard
 remotry deploy <name>            # build + ship
 ```
+
+> **Migrating from `remotry-cli` / `remotry-core`?** The unscoped packages are no
+> longer maintained (last version `1.0.2`). Uninstall them and install the
+> `@develoverli/*` packages — the `remotry` command stays the same.
 
 ### VSCode extension
 
@@ -57,9 +61,9 @@ or from the editor:
 ext install develoverli.remotry-vscode
 ```
 
-The extension imports `remotry-core` and deploys **in-process** — no CLI install
-and no subprocess spawn. After installing, reload VSCode and click the **rocket
-icon** in the activity bar to open the **Deploy Projects** panel: register a
+The extension imports `@develoverli/remotry-core` and deploys **in-process** — no CLI install
+and no subprocess spawn. After installing, reload VSCode and click the **Remotry
+icon** (server with an upload arrow) in the activity bar to open the **Deploy Projects** panel: register a
 project in a form, then deploy it with one click. It shares the same
 `~/.remotry/projects.json` registry as the CLI, so projects show up in both.
 
@@ -200,11 +204,11 @@ remotePath/
 
 ## Programmatic use
 
-`remotry-core` exposes the deployment logic as pure functions and async
+`@develoverli/remotry-core` exposes the deployment logic as pure functions and async
 generators, with no CLI or console dependency:
 
 ```ts
-import { deployProject } from "remotry-core";
+import { deployProject } from "@develoverli/remotry-core";
 
 for await (const event of deployProject("my-app")) {
   if (event.type === "progress") {
@@ -238,7 +242,7 @@ git clone https://github.com/develoverli/remotry.git
 cd remotry
 pnpm install
 pnpm -r build                         # build all packages
-pnpm --filter remotry-cli build       # build only the CLI
+pnpm --filter @develoverli/remotry-cli build       # build only the CLI
 pnpm --filter remotry-vscode compile  # build the VSCode extension (esbuild bundle)
 ```
 

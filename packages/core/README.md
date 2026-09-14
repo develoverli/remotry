@@ -1,8 +1,8 @@
-# remotry-core
+# @develoverli/remotry-core
 
 > **Pure deployment logic for Remotry — SSH/SFTP project deploys with no CLI or UI dependency.**
 
-[![npm](https://img.shields.io/npm/v/remotry-core.svg)](https://www.npmjs.com/package/remotry-core)
+[![npm](https://img.shields.io/npm/v/@develoverli/remotry-core.svg)](https://www.npmjs.com/package/@develoverli/remotry-core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 The engine behind [Remotry](https://github.com/develoverli/remotry). It builds a
@@ -12,16 +12,20 @@ atomic `current` symlink. Framework-agnostic: no CLI, no console output, no
 process spawning of its own — just typed functions and async generators you can
 drive from a CLI, an editor extension, or a CI script.
 
-Used by [`remotry-cli`](https://www.npmjs.com/package/remotry-cli) and the
+Used by [`@develoverli/remotry-cli`](https://www.npmjs.com/package/@develoverli/remotry-cli) and the
 [Remotry VSCode extension](https://marketplace.visualstudio.com/items?itemName=develoverli.remotry-vscode).
 Install it directly when you want to embed deploys in your own tooling.
 
 ## Install
 
 ```bash
-npm install remotry-core
-# or: pnpm add remotry-core
+npm install @develoverli/remotry-core
+# or: pnpm add @develoverli/remotry-core
 ```
+
+> **Formerly published as `remotry-core`.** That unscoped package is no longer
+> maintained (last version `1.0.2`) — replace it with `@develoverli/remotry-core`
+> and update your imports.
 
 Requires **Node.js 18+**.
 
@@ -30,7 +34,7 @@ Requires **Node.js 18+**.
 `deployProject` is an async generator that yields typed progress events:
 
 ```ts
-import { deployProject } from "remotry-core";
+import { deployProject } from "@develoverli/remotry-core";
 
 for await (const event of deployProject("my-app")) {
   switch (event.type) {
@@ -58,7 +62,7 @@ import {
   updateProject,
   removeProject,
   rollbackProject,
-} from "remotry-core";
+} from "@develoverli/remotry-core";
 ```
 
 Lower-level building blocks are also exported:

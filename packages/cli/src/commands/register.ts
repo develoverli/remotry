@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { registerProject } from "remotry-core";
+import { registerProject } from "@develoverli/remotry-core";
 import { logger } from "../utils/logger";
 
 interface RegisterOptions {
