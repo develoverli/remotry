@@ -104,7 +104,7 @@ Other SSH options in the register form:
 | `Deploy: Show Status` | Show target, auth, and last deploy result |
 | `Deploy: List Projects` | List all registered projects |
 | `Deploy: Remove Project` | Unregister a project and forget its saved secrets |
-| `Deploy: Refresh` | Refresh the tree view |
+| `Deploy: Refresh` | Refresh the projects panel |
 | `Deploy: Show Deploy Log` | Open the full deploy output |
 | `Deploy: Open Config File` | Open the config file in the editor |
 
@@ -120,7 +120,7 @@ Other SSH options in the register form:
 
 **Sidebar icon missing**: reload VSCode after install (`Ctrl+Shift+P` → `Developer: Reload Window`).
 
-**Deploy fails to connect**: run **Test connection** from the project's right-click menu. For key login, check the key path and that the key is authorized on the server.
+**Deploy fails to connect**: click **Test connection** (plug icon) on the project's card. For key login, check the key path and that the key is authorized on the server.
 
 **ssh-agent finds no keys**: make sure the agent is running with your key loaded (`ssh-add -l`). For Pageant, set the environment variable `SSH_AUTH_SOCK=pageant` before starting VSCode.
 

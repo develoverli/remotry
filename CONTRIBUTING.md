@@ -82,7 +82,7 @@ docs(readme): clarify pnpm setup step
 
 ## Releasing (maintainers)
 
-1. Bump versions in `packages/{core,cli,vscode}/package.json` (keep CLI + core in sync; the extension versions independently).
+1. Bump the version in the root `package.json` and `packages/{core,cli,vscode}/package.json`. All packages share one version, matching the `vX.Y.Z` git tag.
 2. Move the `Unreleased` entries in [`CHANGELOG.md`](CHANGELOG.md) under the new version heading.
 3. `pnpm -r build && pnpm --filter remotry bundle:prod && pnpm --filter remotry package`.
 4. Publish the npm packages: `pnpm --filter @develoverli/remotry-core publish && pnpm --filter @develoverli/remotry-cli publish`.

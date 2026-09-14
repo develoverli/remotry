@@ -14,6 +14,21 @@ Only the latest release line receives security fixes.
 | `remotry` (VSCode extension) latest `1.x` | ✅ |
 | Older versions | ❌ |
 
+## How Remotry handles credentials
+
+- **Passwords and SSH key passphrases are never written to disk by Remotry.** They are not
+  stored in `~/.remotry/projects.json` or in `.deployrc`.
+- **VSCode extension:** secrets are kept in VSCode secret storage (backed by the operating
+  system keychain), only after you choose *Remember*. A secret the server rejects is deleted,
+  and removing a project deletes its secrets.
+- **CLI:** secrets are read from a hidden prompt or from environment variables
+  (`REMOTRY_PASSWORD_<PROJECT>`, `REMOTRY_PASSWORD`, `REMOTRY_PASSPHRASE_<PROJECT>`,
+  `REMOTRY_PASSPHRASE`). In CI, pass them as masked secrets.
+- **SSH private keys** are read from the path you configure and are never copied or uploaded.
+- **Folder targets** use your operating system account's permissions; no credentials are involved.
+- Releases are kept outside the folder your app serves, and Remotry refuses layouts that would
+  expose them.
+
 ## Reporting a vulnerability
 
 **Please do not report security vulnerabilities through public GitHub issues,
